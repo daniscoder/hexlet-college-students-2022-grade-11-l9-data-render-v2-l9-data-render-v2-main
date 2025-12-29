@@ -4,6 +4,7 @@ import FilterCafes from "./FilterCafes.jsx";
 
 const CafesTable = () => {
   const [cafes, setCafes] = useState([]);
+  const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     const fetchCafes = async () => {
@@ -13,11 +14,15 @@ const CafesTable = () => {
     fetchCafes();
   }, []);
 
+  const filteredCafes = filter === "All" 
+    ? cafes 
+    : cafes.filter((cafe) => cafe.subwayCode === filter);
+
   return (
     <div className="cafesTable">
-      <FilterCafes />
+      <FilterCafes filter={filter} setFilter={setFilter} />
       <ul className="cardsList">
-        {cafes.map((cafe) => (
+        {filteredCafes.map((cafe) => (
           <li key={cafe.id} className="card">
             <img src={cafe.img || "https://via.placeholder.com/150"} alt="" />
             <h2>{cafe.name}</h2>

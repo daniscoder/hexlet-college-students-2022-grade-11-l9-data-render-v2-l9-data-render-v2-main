@@ -6,10 +6,14 @@ const subways = [
   { name: "Театральная", code: "Theater" },
 ];
 
-const FilterCafes = () => {
+const FilterCafes = ({ filter, setFilter }) => {
+  const handleChange = (e) => {
+    setFilter(e.target.value);
+  };
+
   return (
     <div className="controls">
-      <select name="subway" id="subway">
+      <select name="subway" id="subway" value={filter} onChange={handleChange}>
         <option value="All">Все</option>
         {subways.map((subway) => (
           <option key={subway.code} value={subway.code}>
